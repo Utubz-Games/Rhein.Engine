@@ -5,7 +5,8 @@
 
 ### Layout
 ```
-RHEIN CHART VERSION 1
+RHEIN CHART
+VERSION 1
 
 [Properties]
 Type: 0
@@ -58,7 +59,8 @@ SomeValue: 0
 
 ## 4 Key Mania
 ```
-RHEIN CHART VERSION 1
+RHEIN CHART
+VERSION 1
 
 [Properties]
 Type: 0
