@@ -1,7 +1,6 @@
 ﻿# Charting Guide
 
 ## File Format v1 (.rch - **R**hein **CH**art)
-? = Optional
 
 ### Layout
 ```
@@ -24,34 +23,34 @@ SomeValue: 0
 ### **Properties**
 
 #### General
-|Parameter|Type     |Default
-|---------|---------|-
-|Type     |int      |N/A
-|Bpm      |float    |N/A
-|Offset   |int      |N/A
+|Parameter|Type
+|---------|-
+|Type     |int
+|Bpm      |float
+|Offset   |int
 
 #### Mania
-|Parameter|Type     |Default
-|---------|---------|-
-|Keys     |int      |N/A
+|Parameter|Type
+|---------|-
+|Keys     |int
 
 <br>
 
 ### **Objects**
 
 #### Note Object
-|Parameter|Type     |Default
-|---------|---------|-
-|Type     |int      |N/A
-|Beat     |float    |N/A
-|Length   |float?   |0.0
+|Parameter|Type
+|---------|-
+|Type     |int
+|Beat     |float
+|Length   |float
 
 #### Event Object
-|Parameter|Type     |Default
-|---------|---------|-
-|Type     |int      |N/A
-|Beat     |float    |N/A
-|Value    |any?     |null
+|Parameter|Type
+|---------|-
+|Type     |int
+|Beat     |float
+|Value    |any?
 
 <br>
 
@@ -69,33 +68,33 @@ Offset: 0
 Keys: 4
 
 [Notes]
-0:0
-1:0.25
-2:0.5
-3:0.75
-0:1
-1:1.25
-2:1.5
-3:1.75
-0:2
-1:2.25
-2:2.5
-3:2.75
-0:3
-1:3.25
-2:3.5
-3:3.75
-0:4
-1:4
-1:4.375
-2:4.375
-0:4.75
-2:4.75
-3:4.75
-0:5
-1:5
-2:5
-3:5
+0:0:0
+1:0.25:0
+2:0.5:0
+3:0.75:0
+0:1:0
+1:1.25:0
+2:1.5:0
+3:1.75:0
+0:2:0
+1:2.25:0
+2:2.5:0
+3:2.75:0
+0:3:0
+1:3.25:0
+2:3.5:0
+3:3.75:0
+0:4:0
+1:4:0
+1:4.375:0
+2:4.375:0
+0:4.75:0
+2:4.75:0
+3:4.75:0
+0:5:3
+1:5:3
+2:5:3
+3:5:3
 
 [Events]
 0:4:175
