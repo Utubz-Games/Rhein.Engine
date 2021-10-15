@@ -80,11 +80,13 @@ namespace Rhein.Gamemodes
             Mods = mods;
             ApplyMods();
 
-            Playing = true;
+            Setup();
         }
 
         internal void Init()
         {
+            Playing = true;
+
             Start();
 
             while (Playing)
@@ -94,6 +96,7 @@ namespace Rhein.Gamemodes
             }
         }
 
+        internal abstract void Setup();
         internal abstract void Start();
         internal abstract void Update();
 

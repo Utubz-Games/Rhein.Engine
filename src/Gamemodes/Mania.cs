@@ -22,7 +22,12 @@ namespace Rhein.Gamemodes
         /// <summary>
         /// The collection of <see cref="Gameplay.Mania.Lane"/>s in the current <see cref="Mania"/> <see cref="Gamemode"/>.
         /// </summary>
-        public LaneCollection Lanes { get; }
+        public LaneCollection Lanes { get; internal set; }
+
+        internal override void Setup()
+        {
+            Lanes = new LaneCollection(Keys);
+        }
 
         internal override void Start()
         {

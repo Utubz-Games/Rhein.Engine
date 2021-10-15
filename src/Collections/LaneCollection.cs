@@ -16,5 +16,15 @@ namespace Rhein.Collections
     /// </summary>
     public class LaneCollection : Collection<Lane>
     {
+        public LaneCollection(int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                Lane lane = new Lane();
+                lane.Index = i;
+                lane.Notes = new ManiaNoteCollection();
+                Add(lane);
+            }
+        }
     }
 }
