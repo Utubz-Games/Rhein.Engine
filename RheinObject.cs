@@ -6,15 +6,16 @@
  *  (C) 2021 Jaiden "398utubzyt" Garcia
  */
 
-using Rhein.Collections.Base;
-using Rhein.Gameplay.Mania;
+using Rhein;
+using Rhein.Gamemodes;
 
-namespace Rhein.Collections
+namespace Rhein
 {
     /// <summary>
-    /// A <see cref="Collection{T}"/> of <see cref="Lane"/>s.
+    /// The base class for most <see cref="Rhein"/> Engine classes.
     /// </summary>
-    public class LaneCollection : Collection<Lane>
+    public abstract class RheinObject
     {
+        internal Gamemode Gamemode { get; set; }
     }
 }
