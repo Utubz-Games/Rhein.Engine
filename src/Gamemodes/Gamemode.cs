@@ -7,6 +7,7 @@
  */
 
 using Rhein.Mods;
+using Rhein.Gameplay;
 
 namespace Rhein.Gamemodes
 {
@@ -18,6 +19,10 @@ namespace Rhein.Gamemodes
     {
         private int pastBeat;
 
+        /// <summary>
+        /// The current <see cref="Gameplay.Chart"/> being used for this <see cref="Gamemode"/>.
+        /// </summary>
+        public Chart Chart { get; internal set; }
         /// <summary>
         /// The current <see cref="TimingWindows"/> being used for this <see cref="Gamemode"/>.
         /// </summary>
@@ -55,6 +60,11 @@ namespace Rhein.Gamemodes
         /// Gets if the <see cref="Gamemode"/> is currently running.
         /// </summary>
         public bool Playing { get; internal set; } = true;
+
+        public T As<T>() where T : Gamemode
+        {
+            return (T)this;
+        }
 
         private void ApplyMods()
         {

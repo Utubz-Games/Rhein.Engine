@@ -192,12 +192,18 @@ namespace Rhein.Collections.Base
             return (IEnumerator<T>)GetEnumerator();
         }
 
-        internal Collection()
+        /// <summary>
+        /// Creates a new <see cref="Collection{T}"/> instance.
+        /// </summary>
+        public Collection()
         {
             arr = Array.Empty<T>();
         }
 
-        internal Collection(IEnumerable<T> e)
+        /// <summary>
+        /// Creates a new <see cref="Collection{T}"/> instance.
+        /// </summary>
+        public Collection(IEnumerable<T> e)
         {
             Add(e);
         }

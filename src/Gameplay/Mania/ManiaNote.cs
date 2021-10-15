@@ -9,7 +9,7 @@
 namespace Rhein.Gameplay.Mania
 {
     /// <summary>
-    /// A <see cref="ManiaNote"/> that provides timing data.
+    /// A <see cref="ManiaNote"/> that provides timing and lane data.
     /// </summary>
     public class ManiaNote : Note
     {
@@ -22,5 +22,24 @@ namespace Rhein.Gameplay.Mania
         /// The index of the <see cref="Mania.Lane"/> the <see cref="ManiaNote"/> is in.
         /// </summary>
         public int LaneIndex => Lane.Index;
+
+        /// <summary>
+        /// Creates a new <see cref="ManiaNote"/> instance.
+        /// </summary>
+        public ManiaNote()
+        {
+            
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="ManiaNote"/> instance.
+        /// </summary>
+        public ManiaNote(Lane lane, float beat, float length)
+        {
+            Lane = lane;
+            Type = lane.Index;
+            Beat = beat;
+            Length = length;
+        }
     }
 }

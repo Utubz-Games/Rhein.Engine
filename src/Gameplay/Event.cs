@@ -15,28 +15,28 @@ using System.Threading.Tasks;
 namespace Rhein.Gameplay
 {
     /// <summary>
-    /// A base <see cref="Note"/> class that provides basic timing data.
+    /// The base class for all <see cref="Event"/>s.
     /// </summary>
-    public abstract class Note : RheinObject
+    public abstract class Event
     {
         /// <summary>
-        /// The type ID of the <see cref="Note"/>.
+        /// The type ID of the <see cref="Event"/>.
         /// </summary>
         public int Type { get; internal set; }
 
         /// <summary>
-        /// The beat that the <see cref="Note"/> should be hit on.
+        /// The beat that the <see cref="Event"/> should be run on.
         /// </summary>
         public float Beat { get; internal set; }
 
         /// <summary>
-        /// The length in beats that the <see cref="Note"/> should be held for.
+        /// The value of the <see cref="Event"/> for variation.
         /// </summary>
-        public float Length { get; internal set; }
+        public object Value { get; internal set; }
 
         /// <summary>
-        /// Gets if the <see cref="Note"/> has been hit yet.
+        /// Gets if the <see cref="Event"/> has ran yet.
         /// </summary>
-        public bool Hit { get; internal set; }
+        public bool Executed { get; internal set; }
     }
 }

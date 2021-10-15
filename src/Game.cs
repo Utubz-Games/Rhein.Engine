@@ -9,6 +9,7 @@
 using System;
 using System.Threading;
 
+using Rhein.Gameplay;
 using Rhein.Gamemodes;
 using Rhein.Mods;
 
@@ -33,7 +34,7 @@ namespace Rhein
         public static bool Running => started;
 
         /// <summary>
-        /// Starts a new <see cref="Mania4k"/> game with no <see cref="Mod"/>s and default <see cref="TimingWindows"/>.
+        /// Starts a new <see cref="Mania4k"/> <see cref="Game"/> with no <see cref="Mod"/>s and default <see cref="TimingWindows"/>.
         /// </summary>
         /// <returns>The <see cref="Result"/> status of <see cref="Run(bool)"/>.</returns>
         public static Result Run(bool autoStart = true)
@@ -42,7 +43,7 @@ namespace Rhein
         }
 
         /// <summary>
-        /// Starts a new <see cref="Mania4k"/> game with the provided <see cref="TimingWindows"/> and <see cref="Mod"/>s.
+        /// Starts a new <see cref="Mania4k"/> <see cref="Game"/> with the provided <see cref="TimingWindows"/> and <see cref="Mod"/>s.
         /// </summary>
         /// 
         /// <returns>The <see cref="Result"/> status of <see cref="Run(bool, TimingWindows, Mod[])"/>.</returns>
@@ -68,7 +69,7 @@ namespace Rhein
         }
 
         /// <summary>
-        /// Starts a new specified game with the provided <see cref="TimingWindows"/> and <see cref="Mod"/>s.
+        /// Starts a new specified <see cref="Game"/> with the provided <see cref="TimingWindows"/> and <see cref="Mod"/>s.
         /// </summary>
         /// 
         /// <returns>The <see cref="Result"/> status of <see cref="Run{T}(bool, TimingWindows, Mod[])"/>.</returns>
@@ -92,7 +93,7 @@ namespace Rhein
         }
 
         /// <summary>
-        /// Stops the current game.
+        /// Stops the current <see cref="Game"/>.
         /// </summary>
         public static void Stop()
         {
@@ -104,6 +105,10 @@ namespace Rhein
             started = false;
         }
 
+        /// <summary>
+        /// The current <see cref="Gameplay.Chart"/> being used for this <see cref="Game"/>.
+        /// </summary>
+        public static Chart Chart => gamemode.Chart;
         /// <summary>
         /// The current <see cref="Rhein.TimingWindows"/> being used for this <see cref="Game"/>.
         /// </summary>
