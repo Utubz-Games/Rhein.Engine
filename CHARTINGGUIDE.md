@@ -28,7 +28,7 @@ SomeValue: 0
 |---------|---------|-
 |Type     |int      |N/A
 |Bpm      |float    |N/A
-|Offset   |float    |N/A
+|Offset   |int      |N/A
 
 #### Mania
 |Parameter|Type     |Default
