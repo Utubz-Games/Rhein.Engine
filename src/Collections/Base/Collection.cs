@@ -18,21 +18,12 @@ namespace Rhein.Collections.Base
     /// <typeparam name="T">The type of the value the <see cref="Collection{T}"/> will hold.</typeparam>
     public class Collection<T> : ICollection<T>
     {
-        private T[] arr;
+        protected T[] arr;
 
         /// <summary>
         /// The amount of items in the <see cref="Collection{T}"/>.
         /// </summary>
         public int Count => arr.Length;
-        /// <summary>
-        /// Gets if the <see cref="Collection{T}"/> is synchronized. This should always be <see langword="false"/>.
-        /// </summary>
-        public bool IsSynchronized => false;
-        /// <summary>
-        /// The object to sync to. This should always be equal to <see langword="this"/>.
-        /// </summary>
-        public object SyncRoot => this;
-
         /// <summary>
         /// Gets if the <see cref="Collection{T}"/> is read-only. This should always be <see langword="false"/>.
         /// </summary>
@@ -169,15 +160,20 @@ namespace Rhein.Collections.Base
         /// <returns>If the item was removed, <see langword="true"/>, otherwise <see langword="false"/>.</returns>
         public bool Remove(int index)
         {
+            if (arr.Length <= 0)
+                return false;
+
             if (index < 0)
                 return false;
 
             if (index >= arr.Length)
                 return false;
 
+            Logger.Write($"Current Length: {arr.Length}, New Length: {arr.Length - 1}");
+            
+            if (index < arr.Length - 1)
+                Array.Copy(arr, index + 1, arr, index, arr.Length - index - 1);
             T[] newArr = new T[arr.Length - 1];
-            Array.Copy(newArr, 0, arr, 0, index);
-            Array.Copy(newArr, index, arr, index, arr.Length - index - 1);
             arr = newArr;
 
             return true;

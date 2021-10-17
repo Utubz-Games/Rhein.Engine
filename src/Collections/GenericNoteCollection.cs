@@ -12,9 +12,9 @@ using Rhein.Gameplay;
 namespace Rhein.Collections
 {
     /// <summary>
-    /// A <see cref="Collection{T}"/> of <see cref="Note"/>s.
+    /// A <see cref="ConcurrentCollection{T}"/> of <see cref="Note"/>s.
     /// </summary>
-    public class GenericNoteCollection : Collection<Note>
+    public class GenericNoteCollection : ConcurrentCollection<Note>
     {
     }
 }

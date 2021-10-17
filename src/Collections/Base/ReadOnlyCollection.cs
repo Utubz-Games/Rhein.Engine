@@ -25,15 +25,6 @@ namespace Rhein.Collections.Base
         /// </summary>
         public int Count => arr.Length;
         /// <summary>
-        /// Gets if the <see cref="ReadOnlyCollection{T}"/> is synchronized. This should always be <see langword="false"/>.
-        /// </summary>
-        public bool IsSynchronized => false;
-        /// <summary>
-        /// The object to sync to. This should always be equal to <see langword="this"/>.
-        /// </summary>
-        public object SyncRoot => this;
-
-        /// <summary>
         /// Gets if the <see cref="ReadOnlyCollection{T}"/> is read-only. This should always be <see langword="true"/>.
         /// </summary>
         public bool IsReadOnly => true;

@@ -20,7 +20,7 @@ namespace Rhein
     /// </summary>
     public static class Game
     {
-        private static Thread thread;
+        internal static Thread thread;
         private static Gamemode gamemode;
         private static bool started;
         /// <summary>
@@ -101,8 +101,20 @@ namespace Rhein
                 return;
 
             Logger.Write($"Ending the {gamemode.GetType().Name} game.");
-            gamemode.Playing = false;
+            gamemode.Stop();
             started = false;
+        }
+
+        /// <summary>
+        /// Syncs the Rhein Engine music position with an external one.
+        /// </summary>
+        /// <param name="pos"></param>
+        public static void Sync(float pos)
+        {
+            if (!started)
+                return;
+
+            gamemode.Position = pos;
         }
 
         /// <summary>
@@ -142,8 +154,8 @@ namespace Rhein
         /// </summary>
         public static float Length => gamemode.Length;
         /// <summary>
-        /// The current Beat Position of the song being used for this <see cref="Game"/>.
+        /// The current Beat of the song being used for this <see cref="Game"/>.
         /// </summary>
-        public static float Beat => gamemode.Position * (Bpm / 60f);
+        public static float Beat => gamemode.Beat;
     }
 }

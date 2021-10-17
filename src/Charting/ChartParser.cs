@@ -160,7 +160,7 @@ namespace Rhein.Charting
                             note.Length = noteLength;
 
                         if (check >= 2)
-                            chart.Notes.Add(note);
+                            chart.Notes.TryAdd(note);
                         break;
 
                     // Events

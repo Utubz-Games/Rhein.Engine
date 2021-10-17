@@ -403,7 +403,9 @@ namespace Rhein
 		/// <returns><see langword="true"/> if the <see cref="Key"/> was pressed. Otherwise, <see langword="false"/>.</returns>
 		public static bool KeyDown(Key key)
         {
-			return (bool)(KeyPressHandler?.Invoke((int)key));
+			if (KeyPressHandler == null)
+				return false;
+			return KeyPressHandler((int)key);
         }
 
 		/// <summary>
@@ -413,7 +415,9 @@ namespace Rhein
 		/// <returns><see langword="true"/> if the <see cref="Key"/> was released. Otherwise, <see langword="false"/>.</returns>
 		public static bool KeyUp(Key key)
 		{
-			return (bool)(KeyReleaseHandler?.Invoke((int)key));
+			if (KeyReleaseHandler == null)
+				return false;
+			return KeyReleaseHandler((int)key);
 		}
 
 		/// <summary>
@@ -423,7 +427,9 @@ namespace Rhein
 		/// <returns><see langword="true"/> if the <see cref="Key"/> is being held down. Otherwise, <see langword="false"/>.</returns>
 		public static bool KeyHold(Key key)
 		{
-			return (bool)(KeyHoldHandler?.Invoke((int)key));
+			if (KeyHoldHandler == null)
+				return false;
+			return KeyHoldHandler((int)key);
 		}
 
 		internal static void Update()

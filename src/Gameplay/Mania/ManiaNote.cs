@@ -40,6 +40,7 @@ namespace Rhein.Gameplay.Mania
             Type = lane.Index;
             Beat = beat;
             Length = length;
+            lane.Notes.TryAdd(this);
         }
     }
 }

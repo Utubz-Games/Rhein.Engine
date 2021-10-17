@@ -12,9 +12,9 @@ using Rhein.Gameplay.Mania;
 namespace Rhein.Collections
 {
     /// <summary>
-    /// A <see cref="Collection{T}"/> of <see cref="ManiaNote"/>s.
+    /// A <see cref="ConcurrentCollection{T}"/> of <see cref="ManiaNote"/>s.
     /// </summary>
-    public class ManiaNoteCollection : Collection<ManiaNote>
+    public class ManiaNoteCollection : ConcurrentCollection<ManiaNote>
     {
     }
 }

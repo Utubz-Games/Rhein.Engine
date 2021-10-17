@@ -8,6 +8,8 @@
 
 using Rhein.Mods;
 using Rhein.Gameplay;
+using Rhein.Gameplay.Mania;
+using System.Diagnostics;
 
 namespace Rhein.Gamemodes
 {
@@ -18,6 +20,7 @@ namespace Rhein.Gamemodes
     public abstract class Gamemode
     {
         private int pastBeat;
+        private bool playing;
 
         /// <summary>
         /// The current <see cref="Gameplay.Chart"/> being used for this <see cref="Gamemode"/>.
@@ -38,7 +41,7 @@ namespace Rhein.Gamemodes
         /// <summary>
         /// The current Beats Per Minute of the song being used for this <see cref="Gamemode"/>.
         /// </summary>
-        public float Bpm { get; internal set; } = 120f;
+        public float Bpm { get; internal set; } = 180f;
         /// <summary>
         /// The current Speed of the song being used for this <see cref="Gamemode"/>.
         /// </summary>
@@ -47,6 +50,10 @@ namespace Rhein.Gamemodes
         /// The current Position of the song being used for this <see cref="Gamemode"/>.
         /// </summary>
         public float Position { get; internal set; } = 0f;
+        /// <summary>
+        /// The current Beat of the song being used for this <see cref="Gamemode"/>.
+        /// </summary>
+        public float Beat => Position * (Bpm / 60f);
         /// <summary>
         /// The Length of the song being used for this <see cref="Gamemode"/>.
         /// </summary>
@@ -59,7 +66,9 @@ namespace Rhein.Gamemodes
         /// <summary>
         /// Gets if the <see cref="Gamemode"/> is currently running.
         /// </summary>
-        public bool Playing { get; internal set; } = true;
+        public bool Playing => playing;
+
+        private Stopwatch deltaTimer;
 
         public T As<T>() where T : Gamemode
         {
@@ -85,15 +94,27 @@ namespace Rhein.Gamemodes
 
         internal void Init()
         {
-            Playing = true;
+            playing = true;
 
             Start();
 
-            while (Playing)
+            deltaTimer = new Stopwatch();
+            deltaTimer.Start();
+
+            while (playing)
             {
+                Position = (float)deltaTimer.Elapsed.TotalSeconds * Speed;
+
                 Input.Update();
                 Update();
             }
+
+            deltaTimer.Stop();
+        }
+
+        internal void Stop()
+        {
+            playing = false;
         }
 
         internal abstract void Setup();

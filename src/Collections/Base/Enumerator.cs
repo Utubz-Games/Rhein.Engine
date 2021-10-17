@@ -53,6 +53,11 @@ namespace Rhein.Collections.Base
             
         }
 
+        internal Enumerator(T[] array)
+        {
+            this.collection = new Collection<T>(array);
+        }
+
         internal Enumerator(Collection<T> collection)
         {
             this.collection = collection;
