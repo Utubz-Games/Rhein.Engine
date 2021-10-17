@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RheinEngine", "src\RheinEngine.csproj", "{8226F95F-2BE8-41CD-8A3F-2773E1398FE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleApplication", "examples_src\ExampleApplication\ExampleApplication.csproj", "{2DAE1BAF-1B59-4C9C-A941-C2FEF9B62770}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApplication", "examples_src\SampleApplication.csproj", "{2DAE1BAF-1B59-4C9C-A941-C2FEF9B62770}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
