@@ -3,7 +3,7 @@
  *  License, v. 2.0. If a copy of the MPL was not distributed with this
  *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *  
- *  (C) 2021 Jaiden "398utubzyt" Garcia
+ *  Copyright (C) 2021 Jaiden "398utubzyt" Garcia
  */
 
 using StringBuilder = System.Text.StringBuilder;
@@ -143,6 +143,7 @@ namespace Rhein.Charting
                         Note note = new ChartNote();
                         note.Length = 0f;
                         note.Hit = false;
+                        note.Destroyed = false;
 
                         if (int.TryParse(noteProperty[0], out int noteType))
                         {
@@ -160,7 +161,7 @@ namespace Rhein.Charting
                             note.Length = noteLength;
 
                         if (check >= 2)
-                            chart.Notes.TryAdd(note);
+                            chart.Notes.Push(note);
                         break;
 
                     // Events

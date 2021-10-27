@@ -3,7 +3,7 @@
  *  License, v. 2.0. If a copy of the MPL was not distributed with this
  *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *  
- *  (C) 2021 Jaiden "398utubzyt" Garcia
+ *  Copyright (C) 2021 Jaiden "398utubzyt" Garcia
  */
 
 using Rhein.Mods;
@@ -94,27 +94,36 @@ namespace Rhein.Gamemodes
 
         internal void Init()
         {
+            Ready();
+
+            while (playing)
+            {
+                Process();
+            }
+        }
+
+        internal void Stop()
+        {
+            playing = false;
+            deltaTimer.Stop();
+        }
+
+        public void Ready()
+        {
             playing = true;
 
             Start();
 
             deltaTimer = new Stopwatch();
             deltaTimer.Start();
-
-            while (playing)
-            {
-                Position = (float)deltaTimer.Elapsed.TotalSeconds * Speed;
-
-                Input.Update();
-                Update();
-            }
-
-            deltaTimer.Stop();
         }
 
-        internal void Stop()
+        public void Process()
         {
-            playing = false;
+            Position = (float)deltaTimer.Elapsed.TotalSeconds * Speed;
+
+            Input.Update();
+            Update();
         }
 
         internal abstract void Setup();

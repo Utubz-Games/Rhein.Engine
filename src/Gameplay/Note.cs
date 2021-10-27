@@ -3,7 +3,7 @@
  *  License, v. 2.0. If a copy of the MPL was not distributed with this
  *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *  
- *  (C) 2021 Jaiden "398utubzyt" Garcia
+ *  Copyright (C) 2021 Jaiden "398utubzyt" Garcia
  */
 
 using System;
@@ -38,5 +38,23 @@ namespace Rhein.Gameplay
         /// Gets if the <see cref="Note"/> has been hit yet.
         /// </summary>
         public bool Hit { get; internal set; }
+
+        /// <summary>
+        /// Gets if the <see cref="Note"/> has been hit/missed yet.
+        /// </summary>
+        public bool Destroyed { get; internal set; }
+
+        /// <summary>
+        /// Gets the time in seconds off the note was hit by.
+        /// </summary>
+        public float Deviance { get; internal set; }
+
+        /// <summary>
+        /// Sets <see cref="Destroyed"/> to true.
+        /// </summary>
+        public void Destroy()
+        {
+            Destroyed = true;
+        }
     }
 }

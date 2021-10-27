@@ -3,7 +3,7 @@
  *  License, v. 2.0. If a copy of the MPL was not distributed with this
  *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *  
- *  (C) 2021 Jaiden "398utubzyt" Garcia
+ *  Copyright (C) 2021 Jaiden "398utubzyt" Garcia
  */
 
 using System;
@@ -26,12 +26,17 @@ namespace Rhein
         /// <summary>
         /// Gets the current <see cref="Gamemodes.Gamemode"/> of the <see cref="Game"/>.
         /// </summary>
-        public static Gamemode Gamemode { get { return gamemode; } }
+        public static Gamemode Gamemode => gamemode;
 
         /// <summary>
         /// Gets if the <see cref="Game"/> is currently running.
         /// </summary>
         public static bool Running => started;
+
+        /// <summary>
+        /// The thread that Rhein Engine is currently running on.
+        /// </summary>
+        public static Thread Thread => thread;
 
         /// <summary>
         /// Starts a new <see cref="Mania4k"/> <see cref="Game"/> with no <see cref="Mod"/>s and default <see cref="TimingWindows"/>.
@@ -56,6 +61,7 @@ namespace Rhein
 
             gamemode = new Mania4k();
             gamemode.Setup(timings, mods);
+            thread = null;
 
             if (autoStart)
             {
@@ -80,7 +86,10 @@ namespace Rhein
 
             started = true;
 
-            gamemode = (Gamemode)Activator.CreateInstance(typeof(T), timings, mods);
+            gamemode = Activator.CreateInstance<T>();
+            gamemode.Setup(timings, mods);
+            thread = null;
+
             if (autoStart)
             {
                 thread = new Thread(gamemode.Init);

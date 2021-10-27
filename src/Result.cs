@@ -3,14 +3,8 @@
  *  License, v. 2.0. If a copy of the MPL was not distributed with this
  *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *  
- *  (C) 2021 Jaiden "398utubzyt" Garcia
+ *  Copyright (C) 2021 Jaiden "398utubzyt" Garcia
  */
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rhein
 {
@@ -67,5 +61,10 @@ namespace Rhein
         public static readonly Result LowMemory = 1;
         /// <summary>Already Started <see cref="Result"/>.</summary>
         public static readonly Result AlreadyStarted = 2;
+        /// <summary>Invalid Gamemode <see cref="Result"/>.</summary>
+        public static readonly Result InvalidGamemode = 3;
+
+        /// <summary>Unity: Using Old Input Module <see cref="Result"/>.</summary>
+        public static readonly Result Unity_OldInputSystem = 1024;
     }
 }

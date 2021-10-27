@@ -3,7 +3,7 @@
  *  License, v. 2.0. If a copy of the MPL was not distributed with this
  *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *  
- *  (C) 2021 Jaiden "398utubzyt" Garcia
+ *  Copyright (C) 2021 Jaiden "398utubzyt" Garcia
  */
 
 using Rhein.Collections;
@@ -46,21 +46,32 @@ namespace Rhein.Gamemodes
         {
             for (int i = 0; i < Keys; i++)
             {
-                if (Lanes[i].Notes.Count > 0)
+                if (Lanes[i].Notes.TryHasNext())
                 {
                     if (!Lanes[i].Notes.TryNotNull())
                     {
                         Logger.Write("Internal Note is null??");
                         Lanes[i].Notes.TryRemove();
                         return;
-                    }
-
-                    if (Input.KeyDown(keys[i]) && Lanes[i].Notes.TryTake(out ManiaNote note))
+                    } else if (Lanes[i].Notes.TryPeek(out ManiaNote note))
                     {
-                        if (Math.Abs((note.Beat / (Bpm / 60f)) - Position) * 1000f <= Windows.Miss)
+                        note.Deviance = Position - (note.Beat / (Bpm / 60f));
+
+                        if (note.Deviance > Windows.Miss)
                         {
-                            note.Hit = true;
-                            Logger.Write("Internal Note was hit");
+                            note.Destroyed = true;
+                            note.Deviance = (Windows.Miss + 1f) * 0.001f;
+                            Lanes[i].Notes.TryRemove();
+                        } else if (Input.KeyDown(keys[i]))
+                        {
+                            //Logger.Write($"key was pressed: {Math.Abs(note.Deviance * 1000f)} - {Windows.Miss}");
+                            if (Math.Abs(note.Deviance * 100f) <= Windows.Miss)
+                            {
+                                note.Hit = true;
+                                note.Destroyed = true;
+                                Lanes[i].Notes.TryRemove();
+                                Logger.Write("Internal Note was hit");
+                            }
                         }
                     }
                 }
