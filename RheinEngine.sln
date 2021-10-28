@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RheinEngine", "src\RheinEng
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleApplication", "examples_src\SampleApplication.csproj", "{2DAE1BAF-1B59-4C9C-A941-C2FEF9B62770}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RheinEngine.Threadsafe", "RheinEngine.Threadsafe\RheinEngine.Threadsafe.csproj", "{EFC2EAF0-F949-4BCE-B46D-7DC3FE53A342}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RheinEngine.Threadsafe", "src\~\RheinEngine.Threadsafe.csproj", "{F799865A-3D15-4AFE-A01F-EE6472204E55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{2DAE1BAF-1B59-4C9C-A941-C2FEF9B62770}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DAE1BAF-1B59-4C9C-A941-C2FEF9B62770}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DAE1BAF-1B59-4C9C-A941-C2FEF9B62770}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EFC2EAF0-F949-4BCE-B46D-7DC3FE53A342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EFC2EAF0-F949-4BCE-B46D-7DC3FE53A342}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EFC2EAF0-F949-4BCE-B46D-7DC3FE53A342}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EFC2EAF0-F949-4BCE-B46D-7DC3FE53A342}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F799865A-3D15-4AFE-A01F-EE6472204E55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F799865A-3D15-4AFE-A01F-EE6472204E55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F799865A-3D15-4AFE-A01F-EE6472204E55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F799865A-3D15-4AFE-A01F-EE6472204E55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
