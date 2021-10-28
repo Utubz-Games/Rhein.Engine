@@ -12,14 +12,21 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<DocumentationFile>$(ProjectDir)$(OutDir)RheinEngine.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Threadsafe\**" />
+    <Compile Remove="~\**" />
+    <EmbeddedResource Remove="Threadsafe\**" />
+    <EmbeddedResource Remove="~\**" />
     <None Remove="*.meta" />
     <None Remove="*\*.meta" />
     <None Remove="*\*\*.meta" />
     <None Remove="*\*\*\*.meta" />
     <None Remove="*.asmdef" />
+	<None Remove="Threadsafe\**" />
+	<None Remove="~\**" />
   </ItemGroup>
 
 </Project>

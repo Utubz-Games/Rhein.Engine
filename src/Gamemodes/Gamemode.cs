@@ -70,6 +70,11 @@ namespace Rhein.Gamemodes
 
         private Stopwatch deltaTimer;
 
+        /// <summary>
+        /// Converts the <see cref="Gamemode"/> to a specified type (if gamemode was originally the child type).
+        /// </summary>
+        /// <typeparam name="T">The <see cref="Gamemode"/> type.</typeparam>
+        /// <returns>The converted <see cref="Gamemode"/>.</returns>
         public T As<T>() where T : Gamemode
         {
             return (T)this;
@@ -92,14 +97,13 @@ namespace Rhein.Gamemodes
             Setup();
         }
 
+        // Was going to be used to run an update loop automatically, but since the API is
+        // currently not multi-threaded this wouldn't make sense, so Gamemode.Process() was
+        // exposed instead. Hopefully we can add a Rhein.ThreadSafe namespace so that this
+        // can be used again.
         internal void Init()
         {
             Ready();
-
-            while (playing)
-            {
-                Process();
-            }
         }
 
         internal void Stop()
@@ -108,7 +112,7 @@ namespace Rhein.Gamemodes
             deltaTimer.Stop();
         }
 
-        public void Ready()
+        internal void Ready()
         {
             playing = true;
 
@@ -118,6 +122,9 @@ namespace Rhein.Gamemodes
             deltaTimer.Start();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Process()
         {
             Position = (float)deltaTimer.Elapsed.TotalSeconds * Speed;

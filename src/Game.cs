@@ -20,7 +20,6 @@ namespace Rhein
     /// </summary>
     public static class Game
     {
-        internal static Thread thread;
         private static Gamemode gamemode;
         private static bool started;
         /// <summary>
@@ -34,25 +33,32 @@ namespace Rhein
         public static bool Running => started;
 
         /// <summary>
-        /// The thread that Rhein Engine is currently running on.
+        /// Starts a new <see cref="Mania4k"/> <see cref="Game"/> with <see cref="Rhein.TimingWindows.Default"/> and no <see cref="Mod"/>s.
         /// </summary>
-        public static Thread Thread => thread;
-
-        /// <summary>
-        /// Starts a new <see cref="Mania4k"/> <see cref="Game"/> with no <see cref="Mod"/>s and default <see cref="TimingWindows"/>.
-        /// </summary>
-        /// <returns>The <see cref="Result"/> status of <see cref="Run(bool)"/>.</returns>
-        public static Result Run(bool autoStart = true)
+        /// 
+        /// <returns>The <see cref="Result"/> status of <see cref="Run()"/>.</returns>
+        public static Result Run()
         {
-            return Run(autoStart, TimingWindows.Default, Array.Empty<Mod>());
+            if (started)
+                return Result.AlreadyStarted;
+
+            started = true;
+
+            gamemode = new Mania4k();
+            gamemode.Setup(TimingWindows.Default, Array.Empty<Mod>());
+            gamemode.Init();
+
+            Logger.Write($"Started a Mania4k game.");
+
+            return Result.Ok;
         }
 
         /// <summary>
-        /// Starts a new <see cref="Mania4k"/> <see cref="Game"/> with the provided <see cref="TimingWindows"/> and <see cref="Mod"/>s.
+        /// Starts a new <see cref="Mania4k"/> <see cref="Game"/> with the provided <see cref="Rhein.TimingWindows"/> and <see cref="Mod"/>s.
         /// </summary>
         /// 
-        /// <returns>The <see cref="Result"/> status of <see cref="Run(bool, TimingWindows, Mod[])"/>.</returns>
-        public static Result Run(bool autoStart, TimingWindows timings, params Mod[] mods)
+        /// <returns>The <see cref="Result"/> status of <see cref="Run(TimingWindows, Mod[])"/>.</returns>
+        public static Result Run(TimingWindows timings, params Mod[] mods)
         {
             if (started)
                 return Result.AlreadyStarted;
@@ -61,13 +67,7 @@ namespace Rhein
 
             gamemode = new Mania4k();
             gamemode.Setup(timings, mods);
-            thread = null;
-
-            if (autoStart)
-            {
-                thread = new Thread(gamemode.Init);
-                thread.Start();
-            }
+            gamemode.Init();
 
             Logger.Write($"Started a Mania4k game.");
 
@@ -75,11 +75,11 @@ namespace Rhein
         }
 
         /// <summary>
-        /// Starts a new specified <see cref="Game"/> with the provided <see cref="TimingWindows"/> and <see cref="Mod"/>s.
+        /// Starts a new specified <see cref="Game"/> with the provided <see cref="Rhein.TimingWindows"/> and <see cref="Mod"/>s.
         /// </summary>
         /// 
-        /// <returns>The <see cref="Result"/> status of <see cref="Run{T}(bool, TimingWindows, Mod[])"/>.</returns>
-        public static Result Run<T>(bool autoStart, TimingWindows timings, params Mod[] mods) where T : Gamemode
+        /// <returns>The <see cref="Result"/> status of <see cref="Run{T}(TimingWindows, Mod[])"/>.</returns>
+        public static Result Run<T>(TimingWindows timings, params Mod[] mods) where T : Gamemode
         {
             if (started)
                 return Result.AlreadyStarted;
@@ -88,13 +88,7 @@ namespace Rhein
 
             gamemode = Activator.CreateInstance<T>();
             gamemode.Setup(timings, mods);
-            thread = null;
-
-            if (autoStart)
-            {
-                thread = new Thread(gamemode.Init);
-                thread.Start();
-            }
+            gamemode.Init();
 
             Logger.Write($"Started a {gamemode.GetType().Name} game.");
 

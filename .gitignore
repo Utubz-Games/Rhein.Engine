@@ -354,3 +354,6 @@ MigrationBackup/
 
 # Unity AsmDef files
 *.asmdef
+
+# Secret Source Files
+src/~

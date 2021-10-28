@@ -345,6 +345,7 @@ namespace Rhein
 	/// </summary>
     public static class Input
     {
+		// Maybe combine these key check delegates into one unified delegate instead?
 		/// <summary>
 		/// Handles a <see cref="Key"/> press check. If you're using anything other than Unity, you may want to convert the <see cref="Key"/> value.
 		/// </summary>
