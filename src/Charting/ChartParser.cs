@@ -32,15 +32,106 @@ namespace Rhein.Charting
         /// </summary>
         public const int Version = 1;
 
+        public static int GetChartType(string chart)
+        {
+            using StringReader reader = new StringReader(chart);
+
+            // Check header to make sure it's a valid file.
+            if (reader.ReadLine() != Header)
+                return -1;
+
+            string verString = reader.ReadLine();
+
+            // Check version prefix before checking version.
+            if (verString.Substring(0, VersionPrefix.Length) != VersionPrefix)
+                return -1;
+
+            // Check if version number is a valid number.
+            if (!int.TryParse(verString.Substring(VersionPrefix.Length - 1), out int version))
+                return -1;
+
+            reader.ReadLine();
+            string line;
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                if (line.Length < 3 || !line.Contains(":"))
+                    break;
+
+                string[] property = line.Replace(" ", "").Split(':');
+
+                switch (property[0])
+                {
+                    case "Type":
+                        if (int.TryParse(property[1], out int type))
+                            return type;
+                        break;
+                }
+            }
+
+            return -1;
+        }
+
         /// <summary>
         /// Converts the <see cref="Chart"/> to a <see cref="string"/> that can be saved to a file.
         /// </summary>
         /// <typeparam name="T">The type of <see cref="Chart"/> to parse.</typeparam>
         /// <param name="chart">The <see cref="Chart"/> to parse.</param>
         /// <returns>A <see cref="Chart"/> in string form.</returns>
-        public static string ToString<T>(T chart) where T : Chart
+        public static string ToString<T>(Chart<T> chart) where T : Note
         {
             StringBuilder builder = new StringBuilder();
+
+            // Header
+            builder.AppendLine(Header);
+            builder.Append(VersionPrefix);
+            builder.Append(Version);
+            builder.AppendLine();
+
+            builder.AppendLine();
+            
+            // Properties
+            builder.AppendLine("[Properties]");
+
+            builder.Append("Type: ");
+            builder.Append(chart.Type);
+            builder.AppendLine();
+
+            builder.Append("Bpm: ");
+            builder.Append(chart.Bpm);
+            builder.AppendLine();
+
+            builder.Append("Offset: ");
+            builder.Append(chart.Offset);
+            builder.AppendLine();
+
+            builder.AppendLine();
+
+            // Notes
+            builder.AppendLine("[Notes]");
+            foreach (Note note in chart.Notes)
+            {
+                builder.Append(note.Type);
+                builder.Append(':');
+                builder.Append(note.Beat);
+                builder.Append(':');
+                builder.Append(note.Length);
+                builder.AppendLine();
+            }
+
+            builder.AppendLine();
+
+            // Events
+            builder.AppendLine("[Events]");
+            foreach (Event ev in chart.Events)
+            {
+                builder.Append(ev.Type);
+                builder.Append(':');
+                builder.Append(ev.Beat);
+                builder.Append(':');
+                builder.Append(ev.Value);
+                builder.AppendLine();
+            }
 
             return builder.ToString();
         }
@@ -51,7 +142,7 @@ namespace Rhein.Charting
         /// <typeparam name="T">The type of <see cref="Chart"/> to convert to.</typeparam>
         /// <param name="str">The <see cref="string"/> to parse.</param>
         /// <returns>A <see cref="Chart"/> in run-time form.</returns>
-        public static T ToChart<T>(string str) where T : Chart, new()
+        public static Chart<T> ToChart<T>(string str) where T : Note, new()
         {
             using StringReader reader = new StringReader(str);
 
@@ -71,7 +162,7 @@ namespace Rhein.Charting
 
             reader.ReadLine();
 
-            T chart = new T();
+            Chart<T> chart = new Chart<T>();
 
             chart.Notes = new Collections.GenericNoteCollection();
             chart.Events = new Collections.GenericEventCollection();
@@ -90,7 +181,7 @@ namespace Rhein.Charting
             return chart;
         }
 
-        private static void ToChartV1<T>(StringReader reader, T chart) where T : Chart
+        private static void ToChartV1<T>(StringReader reader, Chart<T> chart) where T : Note, new()
         {
             // 0 - None
             // 1 - Properties
@@ -140,7 +231,8 @@ namespace Rhein.Charting
                             break;
 
                         string[] noteProperty = line.Replace(" ", "").Split(':');
-                        Note note = new ChartNote();
+                        T note = new T();
+
                         note.Length = 0f;
                         note.Hit = false;
                         note.Destroyed = false;
@@ -161,7 +253,11 @@ namespace Rhein.Charting
                             note.Length = noteLength;
 
                         if (check >= 2)
-                            chart.Notes.Push(note);
+                        {
+                            if (note.Type > chart.TypeRange)
+                                chart.TypeRange = noteType;
+                            chart.Notes.Enqueue(note);
+                        }
                         break;
 
                     // Events
@@ -171,7 +267,9 @@ namespace Rhein.Charting
                             break;
 
                         string[] eventProperty = line.Replace(" ", "").Split(':');
-                        Event ev = new ChartEvent();
+                        Event ev;
+
+                        ev = new Event();
                         ev.Executed = false;
 
                         if (int.TryParse(eventProperty[0], out int eventType))

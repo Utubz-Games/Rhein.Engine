@@ -26,6 +26,6 @@ namespace Rhein.Mods
         /// Applies the <see cref="Mod"/> to the <see cref="Gamemode"/>.
         /// </summary>
         /// <param name="gamemode">The <see cref="Gamemode"/> to apply the <see cref="Mod"/> to.</param>
-        public abstract void Apply(Gamemode gamemode);
+        public abstract void Apply(BaseGamemode gamemode);
     }
 }

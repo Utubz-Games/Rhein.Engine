@@ -17,7 +17,7 @@ namespace Rhein.Collections.Base
     /// An implementation of the <see cref="IProducerConsumerCollection{T}"/> interface using FILO-style accessors.
     /// </summary>
     /// <typeparam name="T">The type of the value the <see cref="ConcurrentCollection{T}"/> will hold.</typeparam>
-    public class ConcurrentCollection<T> : ConcurrentStack<T>
+    public class ConcurrentCollection<T> : ConcurrentQueue<T>
     {
         /// <summary>
         /// Attempts to check to see if the next item from the <see cref="ConcurrentCollection{T}"/> is <see langword="null"/>.
@@ -43,7 +43,7 @@ namespace Rhein.Collections.Base
         /// <returns><see langword="true"/> if the remove was successful, otherwise <see langword="false"/>.</returns>
         public bool TryRemove()
         {
-            return TryPop(out _);
+            return TryDequeue(out _);
         }
 
         /// <summary>

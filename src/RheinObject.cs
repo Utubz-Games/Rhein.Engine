@@ -16,6 +16,6 @@ namespace Rhein
     /// </summary>
     public abstract class RheinObject
     {
-        internal Gamemode Gamemode { get; set; }
+        internal BaseGamemode Gamemode { get; set; }
     }
 }

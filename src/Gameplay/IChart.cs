@@ -6,16 +6,16 @@
  *  Copyright (C) 2021 Jaiden "398utubzyt" Garcia
  */
 
-using System.Collections.Concurrent;
-using Rhein.Collections.Base;
-using Rhein.Gameplay.Mania;
+using Rhein.Collections;
 
-namespace Rhein.Collections
+namespace Rhein.Gameplay
 {
     /// <summary>
-    /// A <see cref="ConcurrentCollection{T}"/> of <see cref="ManiaNote"/>s.
+    /// The base class for all <see cref="Chart"/>s.
     /// </summary>
-    public class ManiaNoteCollection : ConcurrentCollection<ManiaNote>
+    public interface IChart
     {
+        internal void AddNote(Note note);
+        internal void AddEvent(Event ev);
     }
 }

@@ -17,7 +17,7 @@ namespace Rhein.Gameplay
     /// <summary>
     /// A base <see cref="Note"/> class that provides basic timing data.
     /// </summary>
-    public abstract class Note : RheinObject
+    public class Note : RheinObject
     {
         /// <summary>
         /// The type ID of the <see cref="Note"/>.
@@ -55,6 +55,14 @@ namespace Rhein.Gameplay
         public void Destroy()
         {
             Destroyed = true;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Note"/> instance.
+        /// </summary>
+        public Note()
+        {
+
         }
     }
 }

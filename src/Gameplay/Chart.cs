@@ -13,7 +13,7 @@ namespace Rhein.Gameplay
     /// <summary>
     /// The base class for all <see cref="Chart"/>s.
     /// </summary>
-    public abstract class Chart
+    public class Chart<T> : IChart where T : Note
     {
         /// <summary>
         /// The type ID of the <see cref="Chart"/>.
@@ -28,6 +28,10 @@ namespace Rhein.Gameplay
         /// </summary>
         public int Offset { get; internal set; }
         /// <summary>
+        /// Gets the range of note types in the current collection. Can be used as the Key amount in <see cref="Gamemodes.Mania"/>.
+        /// </summary>
+        public int TypeRange { get; internal set; }
+        /// <summary>
         /// A collection of base <see cref="Note"/>s used in the <see cref="Chart"/>.
         /// </summary>
         public GenericNoteCollection Notes { get; internal set; }
@@ -35,5 +39,19 @@ namespace Rhein.Gameplay
         /// A collection of base <see cref="Event"/>s used in the <see cref="Chart"/>.
         /// </summary>
         public GenericEventCollection Events { get; internal set; }
+
+        internal void AddNote(Note note) => AddNote(note as T);
+        internal void AddNote(T note) => Notes.Enqueue(note);
+        internal void AddEvent(Event ev) => Events.Add(ev);
+
+        void IChart.AddNote(Note note)
+        {
+            AddNote(note);
+        }
+
+        void IChart.AddEvent(Event ev)
+        {
+            AddEvent(ev);
+        }
     }
 }

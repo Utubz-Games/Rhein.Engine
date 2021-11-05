@@ -8,60 +8,77 @@
 
 using Rhein.Mods;
 using Rhein.Gameplay;
-using Rhein.Gameplay.Mania;
 using System.Diagnostics;
 
 namespace Rhein.Gamemodes
 {
     /// <summary>
-    /// An abstract <see cref="Gamemode"/> to implement your own gameplay styles.
+    /// An abstract <see cref="Gamemode{T}"/> to implement your own gameplay styles.
     /// This class contains everything related to current gameplay.
     /// </summary>
-    public abstract class Gamemode
+    public abstract class Gamemode<T> : BaseGamemode where T : Note
     {
         private int pastBeat;
         private bool playing;
 
         /// <summary>
-        /// The current <see cref="Gameplay.Chart"/> being used for this <see cref="Gamemode"/>.
+        /// Converts the current <see cref="Gamemode{T}"/> to child/base type. This won't convert to other types.
         /// </summary>
-        public Chart Chart { get; internal set; }
+        /// <typeparam name="G">The type to convert to.</typeparam>
+        /// <returns>The converted <see cref="Gamemode{T}"/>.</returns>
+        public override G As<G>() => (G)(BaseGamemode)this;
+
+        /// <summary>
+        /// The current <see cref="Chart{T}"/> being used for this <see cref="Gamemode"/>.
+        /// </summary>
+        public Chart<T> Chart { get; internal set; }
+        /// <summary>
+        /// Gets the current <see cref="Chart{T}"/>
+        /// </summary>
+        /// <typeparam name="T">The <see cref="Note"/> type.</typeparam>
+        /// <returns>The current <see cref="Chart{T}"/> being used.</returns>
+        public override Chart<N> GetChart<N>()
+        {
+            if (typeof(N) != typeof(T))
+                return null;
+            return (Chart<N>)(IChart)Chart;
+        }
         /// <summary>
         /// The current <see cref="TimingWindows"/> being used for this <see cref="Gamemode"/>.
         /// </summary>
-        public TimingWindows Windows { get; internal set; }
+        public override TimingWindows Windows { get; internal set; }
         /// <summary>
         /// The current <see cref="Mod"/>s being used for this <see cref="Gamemode"/>.
         /// </summary>
-        public Mod[] Mods { get; internal set; }
+        public override Mod[] Mods { get; internal set; }
         /// <summary>
         /// The current Name of the song being used for this <see cref="Gamemode"/>.
         /// </summary>
-        public string Name { get; internal set; } = "Unknown Song";
+        public override string Name { get; internal set; } = "Unknown Song";
         /// <summary>
         /// The current Beats Per Minute of the song being used for this <see cref="Gamemode"/>.
         /// </summary>
-        public float Bpm { get; internal set; } = 180f;
+        public override float Bpm { get; internal set; } = 180f;
         /// <summary>
         /// The current Speed of the song being used for this <see cref="Gamemode"/>.
         /// </summary>
-        public float Speed { get; internal set; } = 1f;
+        public override float Speed { get; internal set; } = 1f;
         /// <summary>
         /// The current Position of the song being used for this <see cref="Gamemode"/>.
         /// </summary>
-        public float Position { get; internal set; } = 0f;
+        public override float Position { get; internal set; } = 0f;
         /// <summary>
         /// The current Beat of the song being used for this <see cref="Gamemode"/>.
         /// </summary>
-        public float Beat => Position * (Bpm / 60f);
+        public override float Beat => Position * (Bpm / 60f);
         /// <summary>
         /// The Length of the song being used for this <see cref="Gamemode"/>.
         /// </summary>
-        public float Length { get; internal set; } = 1f;
+        public override float Length { get; internal set; } = 1f;
         /// <summary>
         /// The current Health of the player in this <see cref="Gamemode"/>.
         /// </summary>
-        public float Health { get; internal set; } = 1f;
+        public override float Health { get; internal set; } = 1f;
 
         /// <summary>
         /// Gets if the <see cref="Gamemode"/> is currently running.
@@ -70,17 +87,7 @@ namespace Rhein.Gamemodes
 
         private Stopwatch deltaTimer;
 
-        /// <summary>
-        /// Converts the <see cref="Gamemode"/> to a specified type (if gamemode was originally the child type).
-        /// </summary>
-        /// <typeparam name="T">The <see cref="Gamemode"/> type.</typeparam>
-        /// <returns>The converted <see cref="Gamemode"/>.</returns>
-        public T As<T>() where T : Gamemode
-        {
-            return (T)this;
-        }
-
-        private void ApplyMods()
+        internal override void ApplyMods()
         {
             foreach (Mod mod in Mods)
             {
@@ -88,7 +95,7 @@ namespace Rhein.Gamemodes
             }
         }
 
-        internal void Setup(TimingWindows timings, Mod[] mods)
+        internal override void Setup(TimingWindows timings, Mod[] mods)
         {
             Windows = timings;
             Mods = mods;
@@ -101,18 +108,18 @@ namespace Rhein.Gamemodes
         // currently not multi-threaded this wouldn't make sense, so Gamemode.Process() was
         // exposed instead. Hopefully we can add a Rhein.ThreadSafe namespace so that this
         // can be used again.
-        internal void Init()
+        internal override void Init()
         {
             Ready();
         }
 
-        internal void Stop()
+        internal override void Stop()
         {
             playing = false;
             deltaTimer.Stop();
         }
 
-        internal void Ready()
+        internal override void Ready()
         {
             playing = true;
 
@@ -123,9 +130,9 @@ namespace Rhein.Gamemodes
         }
 
         /// <summary>
-        /// 
+        /// Updates the <see cref="Gamemode{T}"/>.
         /// </summary>
-        public void Process()
+        public override void Process()
         {
             Position = (float)deltaTimer.Elapsed.TotalSeconds * Speed;
 

@@ -17,7 +17,7 @@ namespace Rhein.Gameplay
     /// <summary>
     /// The base class for all <see cref="Event"/>s.
     /// </summary>
-    public abstract class Event
+    public class Event
     {
         /// <summary>
         /// The type ID of the <see cref="Event"/>.

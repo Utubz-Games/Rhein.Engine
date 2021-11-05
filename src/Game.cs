@@ -20,12 +20,12 @@ namespace Rhein
     /// </summary>
     public static class Game
     {
-        private static Gamemode gamemode;
+        private static BaseGamemode gamemode;
         private static bool started;
         /// <summary>
         /// Gets the current <see cref="Gamemodes.Gamemode"/> of the <see cref="Game"/>.
         /// </summary>
-        public static Gamemode Gamemode => gamemode;
+        public static BaseGamemode Gamemode => gamemode;
 
         /// <summary>
         /// Gets if the <see cref="Game"/> is currently running.
@@ -79,7 +79,7 @@ namespace Rhein
         /// </summary>
         /// 
         /// <returns>The <see cref="Result"/> status of <see cref="Run{T}(TimingWindows, Mod[])"/>.</returns>
-        public static Result Run<T>(TimingWindows timings, params Mod[] mods) where T : Gamemode
+        public static Result Run<T>(TimingWindows timings, params Mod[] mods) where T : BaseGamemode
         {
             if (started)
                 return Result.AlreadyStarted;
@@ -123,7 +123,7 @@ namespace Rhein
         /// <summary>
         /// The current <see cref="Gameplay.Chart"/> being used for this <see cref="Game"/>.
         /// </summary>
-        public static Chart Chart => gamemode.Chart;
+        public static Chart<T> GetChart<T>() where T : Note => gamemode.GetChart<T>();
         /// <summary>
         /// The current <see cref="Rhein.TimingWindows"/> being used for this <see cref="Game"/>.
         /// </summary>
