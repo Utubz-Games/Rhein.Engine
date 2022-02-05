@@ -23,7 +23,7 @@ namespace Rhein
         private static BaseGamemode gamemode;
         private static bool started;
         /// <summary>
-        /// Gets the current <see cref="Gamemodes.Gamemode"/> of the <see cref="Game"/>.
+        /// Gets the current <see cref="BaseGamemode"/> of the <see cref="Game"/>.
         /// </summary>
         public static BaseGamemode Gamemode => gamemode;
 
@@ -121,7 +121,7 @@ namespace Rhein
         }
 
         /// <summary>
-        /// The current <see cref="Gameplay.Chart"/> being used for this <see cref="Game"/>.
+        /// The current <see cref="Chart{T}"/> being used for this <see cref="Game"/>.
         /// </summary>
         public static Chart<T> GetChart<T>() where T : Note => gamemode.GetChart<T>();
         /// <summary>

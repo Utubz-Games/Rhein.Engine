@@ -240,6 +240,9 @@ namespace Rhein.Charting
                         if (int.TryParse(noteProperty[0], out int noteType))
                         {
                             note.Type = noteType;
+                            Logger.Write(noteType.ToString());
+                            if (noteType > chart.TypeRange)
+                                chart.TypeRange = noteType;
                             check++;
                         }
 
@@ -254,8 +257,6 @@ namespace Rhein.Charting
 
                         if (check >= 2)
                         {
-                            if (note.Type > chart.TypeRange)
-                                chart.TypeRange = noteType;
                             chart.Notes.Enqueue(note);
                         }
                         break;
