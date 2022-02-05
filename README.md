@@ -1,6 +1,6 @@
 ### NOTICE: Rhein Engine is still in active development, and may have plenty of features missing!
 
-# RheinEngine
+# Rhein.Engine
 A C# Rhythm Game Engine that only processes the technical stuff.
 
 ## Versions Supported
