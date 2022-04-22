@@ -26,7 +26,7 @@ namespace Rhein
         /// <summary>
         /// Used to handle logging with external libraries (usually the main engine).
         /// </summary>
-        public static event LogHandle OnLog { add { handle += value; Write($"Adding {handle.Method.Name} to Log Handle"); } remove { Write($"Removing {handle.Method.Name} from Log Handle"); handle -= value; } }
+        public static event LogHandle OnLog { add { handle += value; } remove { handle -= value; } }
 
         /// <summary>
         /// Writes a message to the log.

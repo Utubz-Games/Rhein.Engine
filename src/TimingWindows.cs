@@ -28,6 +28,52 @@ namespace Rhein
         /// <summary>Gets if the <see cref="TimingWindows"/> are the same as the <see cref="Default"/> windows.</summary>
         public readonly bool IsDefault;
 
+        public bool TooLate(float ms)
+            => ms * 1000f > Miss;
+
+        public bool TooLate(int ms)
+            => ms > Miss;
+
+        public bool Hittable(float ms)
+            => Math.Abs(ms * 1000f) <= Miss;
+
+        public bool Hittable(int ms)
+            => Math.Abs(ms) <= Miss;
+
+        public Judgement Get(float ms)
+        {
+            ms = Math.Abs(ms * 1000f);
+            if (ms <= Marvelous)
+                return Judgement.Marvelous;
+            else if (ms <= Perfect)
+                return Judgement.Perfect;
+            else if (ms <= Great)
+                return Judgement.Great;
+            else if (ms <= Good)
+                return Judgement.Good;
+            else if (ms <= Okay)
+                return Judgement.Okay;
+            else
+                return Judgement.Miss;
+        }
+
+        public Judgement Get(int ms)
+        {
+            ms = Math.Abs(ms);
+            if (ms <= Marvelous)
+                return Judgement.Marvelous;
+            else if (ms <= Perfect)
+                return Judgement.Perfect;
+            else if (ms <= Great)
+                return Judgement.Great;
+            else if (ms <= Good)
+                return Judgement.Good;
+            else if (ms <= Okay)
+                return Judgement.Okay;
+            else
+                return Judgement.Miss;
+        }
+
         /// <summary>The default <see cref="Judgement.Marvelous"/> window.</summary>
         public const int DefaultMarv  =  21;
         /// <summary>The default <see cref="Judgement.Perfect"/> window.</summary>

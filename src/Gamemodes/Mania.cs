@@ -22,11 +22,16 @@ namespace Rhein.Gamemodes
         /// The amount of keys used in the current <see cref="Mania"/> <see cref="Gamemode"/>.
         /// </summary>
         public abstract int Keys { get; }
+        /// <summary>
+        /// The notes used in the <see cref="Mania"/> <see cref="Gamemode{T}"/>.
+        /// </summary>
+        public ManiaNoteCollection Notes { get; internal set; }
 
         internal override void Setup()
         {
             Chart = new Chart<Note>();
             Chart.Notes = new GenericNoteCollection();
+            Notes = new ManiaNoteCollection(Keys, Chart.Notes);
         }
 
         internal override void Start()

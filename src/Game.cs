@@ -22,6 +22,7 @@ namespace Rhein
     {
         private static BaseGamemode gamemode;
         private static bool started;
+
         /// <summary>
         /// Gets the current <see cref="BaseGamemode"/> of the <see cref="Game"/>.
         /// </summary>
@@ -31,6 +32,11 @@ namespace Rhein
         /// Gets if the <see cref="Game"/> is currently running.
         /// </summary>
         public static bool Running => started;
+
+        private static void RunThread(object state)
+        {
+            gamemode.Init();
+        }
 
         /// <summary>
         /// Starts a new <see cref="Mania4k"/> <see cref="Game"/> with <see cref="Rhein.TimingWindows.Default"/> and no <see cref="Mod"/>s.
@@ -46,7 +52,7 @@ namespace Rhein
 
             gamemode = new Mania4k();
             gamemode.Setup(TimingWindows.Default, Array.Empty<Mod>());
-            gamemode.Init();
+            ThreadPool.QueueUserWorkItem(RunThread);
 
             Logger.Write($"Started a Mania4k game.");
 
@@ -58,7 +64,7 @@ namespace Rhein
         /// </summary>
         /// 
         /// <returns>The <see cref="Result"/> status of <see cref="Run(TimingWindows, Mod[])"/>.</returns>
-        public static Result Run(TimingWindows timings, params Mod[] mods)
+        public static Result Run(TimingWindows timings, float offset, params Mod[] mods)
         {
             if (started)
                 return Result.AlreadyStarted;
@@ -66,8 +72,9 @@ namespace Rhein
             started = true;
 
             gamemode = new Mania4k();
+            gamemode.Offset = offset;
             gamemode.Setup(timings, mods);
-            gamemode.Init();
+            ThreadPool.QueueUserWorkItem(RunThread);
 
             Logger.Write($"Started a Mania4k game.");
 
@@ -79,7 +86,7 @@ namespace Rhein
         /// </summary>
         /// 
         /// <returns>The <see cref="Result"/> status of <see cref="Run{T}(TimingWindows, Mod[])"/>.</returns>
-        public static Result Run<T>(TimingWindows timings, params Mod[] mods) where T : BaseGamemode
+        public static Result Run<T>(TimingWindows timings, float bpm, float offset, params Mod[] mods) where T : BaseGamemode
         {
             if (started)
                 return Result.AlreadyStarted;
@@ -87,8 +94,10 @@ namespace Rhein
             started = true;
 
             gamemode = Activator.CreateInstance<T>();
+            gamemode.Offset = offset;
+            gamemode.Bpm = bpm;
             gamemode.Setup(timings, mods);
-            gamemode.Init();
+            ThreadPool.QueueUserWorkItem(RunThread);
 
             Logger.Write($"Started a {gamemode.GetType().Name} game.");
 
@@ -113,6 +122,18 @@ namespace Rhein
         /// </summary>
         /// <param name="pos"></param>
         public static void Sync(float pos)
+        {
+            if (!started)
+                return;
+
+            gamemode.Sync(pos);
+        }
+
+        /// <summary>
+        /// Temporarily syncs the Rhein Engine music position with an external one until the next process call.
+        /// </summary>
+        /// <param name="pos"></param>
+        public static void TempSync(float pos)
         {
             if (!started)
                 return;

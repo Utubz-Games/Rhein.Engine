@@ -8,6 +8,16 @@ namespace Rhein.Gamemodes
     public abstract class BaseGamemode
     {
         /// <summary>
+        /// Used to run code every Rhein Engine update.
+        /// </summary>
+        public delegate void UpdateHandler();
+
+        /// <summary>
+        /// Hook into the update loop to run code on every Rhein Engine update.
+        /// </summary>
+        public abstract event UpdateHandler OnUpdate;
+
+        /// <summary>
         /// Gets the current <see cref="Chart{T}"/>.
         /// </summary>
         /// <typeparam name="N">The <see cref="Note"/> type.</typeparam>
@@ -29,6 +39,10 @@ namespace Rhein.Gamemodes
         /// The current Beats Per Minute of the song being used for this <see cref="Gamemode"/>.
         /// </summary>
         public abstract float Bpm { get; internal set; }
+        /// <summary>
+        /// The current millisecond offset for the song being used for this <see cref="Gamemode"/>.
+        /// </summary>
+        public abstract float Offset { get; internal set; }
         /// <summary>
         /// The current Speed of the song being used for this <see cref="Gamemode"/>.
         /// </summary>
@@ -54,15 +68,17 @@ namespace Rhein.Gamemodes
 
         internal abstract void Setup(TimingWindows timings, Mod[] mods);
 
-        // Was going to be used to run an update loop automatically, but since the API is
-        // currently not multi-threaded this wouldn't make sense, so Gamemode.Process() was
-        // exposed instead. Hopefully we can add a Rhein.ThreadSafe namespace so that this
-        // can be used again.
         internal abstract void Init();
 
         internal abstract void Stop();
 
         internal abstract void Ready();
+
+        /// <summary>
+        /// Syncs the Rhein Engine music position with an external one.
+        /// </summary>
+        /// <param name="position"></param>
+        public abstract void Sync(float position);
 
         /// <summary>
         /// Updates the <see cref="BaseGamemode"/>.

@@ -6,11 +6,7 @@
  *  Copyright (C) 2021 Jaiden "398utubzyt" Garcia
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Rhein.Gamemodes;
 
 namespace Rhein.Gameplay
 {
@@ -37,7 +33,7 @@ namespace Rhein.Gameplay
         /// <summary>
         /// Gets if the <see cref="Note"/> has been hit yet.
         /// </summary>
-        public bool Hit { get; internal set; }
+        public bool Calculated { get; internal set; }
 
         /// <summary>
         /// Gets if the <see cref="Note"/> has been hit/missed yet.
@@ -50,11 +46,42 @@ namespace Rhein.Gameplay
         public float Deviance { get; internal set; }
 
         /// <summary>
+        /// Gets the expected deviance if the note were to be hit right now.
+        /// </summary>
+        public float Expected { get => (Gamemode.Beat - Beat) * Beat2Sec(); }
+
+        private float Beat2Sec()
+            => 60f / Gamemode.Bpm;
+
+        /// <summary>
         /// Sets <see cref="Destroyed"/> to true.
         /// </summary>
         public void Destroy()
         {
+            if (Destroyed)
+                return;
+
+            Remove();
             Destroyed = true;
+        }
+
+        /// <summary>
+        /// Hits the <see cref="Note"/> and calculates the deviation from the beat.
+        /// </summary>
+        public void Hit()
+        {
+            if (Calculated)
+                return;
+
+            Remove();
+            Calculated = true;
+            Deviance = Expected;
+        }
+
+        protected void Remove()
+        {
+            if (!Calculated && !Destroyed)
+                Gamemode.As<Mania>().Notes.Remove(Type);
         }
 
         /// <summary>
@@ -62,7 +89,40 @@ namespace Rhein.Gameplay
         /// </summary>
         public Note()
         {
+            Type = 0;
+            Beat = 0f;
+            Length = 0f;
+            Calculated = false;
+            Destroyed = false;
+            Deviance = 0f;
+        }
 
+        /// <summary>
+        /// Creates a new <see cref="Note"/> instance.
+        /// </summary>
+        public Note(BaseGamemode gamemode)
+        {
+            Gamemode = gamemode;
+            Type = 0;
+            Beat = 0f;
+            Length = 0f;
+            Calculated = false;
+            Destroyed = false;
+            Deviance = 0f;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Note"/> instance with the provided parameters.
+        /// </summary>
+        public Note(BaseGamemode gamemode, int type, float beat, float length)
+        {
+            Gamemode = gamemode;
+            Type = type;
+            Beat = beat;
+            Length = length;
+            Calculated = false;
+            Destroyed = false;
+            Deviance = 0f;
         }
     }
 }

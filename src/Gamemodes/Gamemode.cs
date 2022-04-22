@@ -18,71 +18,35 @@ namespace Rhein.Gamemodes
     /// </summary>
     public abstract class Gamemode<T> : BaseGamemode where T : Note
     {
-        private int pastBeat;
         private bool playing;
+        private double offset;
 
-        /// <summary>
-        /// Converts the current <see cref="Gamemode{T}"/> to child/base type. This won't convert to other types.
-        /// </summary>
-        /// <typeparam name="G">The type to convert to.</typeparam>
-        /// <returns>The converted <see cref="Gamemode{T}"/>.</returns>
+        public override event UpdateHandler OnUpdate;
+
         public override G As<G>() => (G)(BaseGamemode)this;
 
         /// <summary>
         /// The current <see cref="Chart{T}"/> being used for this <see cref="Gamemode"/>.
         /// </summary>
         public Chart<T> Chart { get; internal set; }
-        /// <summary>
-        /// Gets the current <see cref="Chart{T}"/>
-        /// </summary>
-        /// <typeparam name="T">The <see cref="Note"/> type.</typeparam>
-        /// <returns>The current <see cref="Chart{T}"/> being used.</returns>
         public override Chart<N> GetChart<N>()
         {
             if (typeof(N) != typeof(T))
                 return null;
             return (Chart<N>)(IChart)Chart;
         }
-        /// <summary>
-        /// The current <see cref="TimingWindows"/> being used for this <see cref="Gamemode"/>.
-        /// </summary>
+
         public override TimingWindows Windows { get; internal set; }
-        /// <summary>
-        /// The current <see cref="Mod"/>s being used for this <see cref="Gamemode"/>.
-        /// </summary>
         public override Mod[] Mods { get; internal set; }
-        /// <summary>
-        /// The current Name of the song being used for this <see cref="Gamemode"/>.
-        /// </summary>
         public override string Name { get; internal set; } = "Unknown Song";
-        /// <summary>
-        /// The current Beats Per Minute of the song being used for this <see cref="Gamemode"/>.
-        /// </summary>
-        public override float Bpm { get; internal set; } = 180f;
-        /// <summary>
-        /// The current Speed of the song being used for this <see cref="Gamemode"/>.
-        /// </summary>
+        public override float Bpm { get; internal set; } = 120f;
+        public override float Offset { get; internal set; } = 30f;
         public override float Speed { get; internal set; } = 1f;
-        /// <summary>
-        /// The current Position of the song being used for this <see cref="Gamemode"/>.
-        /// </summary>
         public override float Position { get; internal set; } = 0f;
-        /// <summary>
-        /// The current Beat of the song being used for this <see cref="Gamemode"/>.
-        /// </summary>
         public override float Beat => Position * (Bpm / 60f);
-        /// <summary>
-        /// The Length of the song being used for this <see cref="Gamemode"/>.
-        /// </summary>
         public override float Length { get; internal set; } = 1f;
-        /// <summary>
-        /// The current Health of the player in this <see cref="Gamemode"/>.
-        /// </summary>
         public override float Health { get; internal set; } = 1f;
 
-        /// <summary>
-        /// Gets if the <see cref="Gamemode"/> is currently running.
-        /// </summary>
         public bool Playing => playing;
 
         private Stopwatch deltaTimer;
@@ -102,15 +66,18 @@ namespace Rhein.Gamemodes
             ApplyMods();
 
             Setup();
+
+            Offset += Chart.Offset;
         }
 
-        // Was going to be used to run an update loop automatically, but since the API is
-        // currently not multi-threaded this wouldn't make sense, so Gamemode.Process() was
-        // exposed instead. Hopefully we can add a Rhein.ThreadSafe namespace so that this
-        // can be used again.
         internal override void Init()
         {
             Ready();
+
+            while (playing)
+            {
+                Process();
+            }
         }
 
         internal override void Stop()
@@ -129,20 +96,23 @@ namespace Rhein.Gamemodes
             deltaTimer.Start();
         }
 
-        /// <summary>
-        /// Updates the <see cref="Gamemode{T}"/>.
-        /// </summary>
         public override void Process()
         {
-            Position = (float)deltaTimer.Elapsed.TotalSeconds * Speed;
-
+            Position = (float)(deltaTimer.Elapsed.TotalSeconds + offset) * Speed + Offset;
+            
             Input.Update();
             Update();
+            OnUpdate?.Invoke();
         }
 
         internal abstract void Setup();
         internal abstract void Start();
         internal abstract void Update();
+
+        public override void Sync(float position)
+        {
+            offset = position - deltaTimer.Elapsed.TotalSeconds - Offset;
+        }
 
         /// <summary>
         /// Creates a new <see cref="Gamemode"/> instance.

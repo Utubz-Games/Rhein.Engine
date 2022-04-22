@@ -234,7 +234,7 @@ namespace Rhein.Charting
                         T note = new T();
 
                         note.Length = 0f;
-                        note.Hit = false;
+                        note.Calculated = false;
                         note.Destroyed = false;
 
                         if (int.TryParse(noteProperty[0], out int noteType))
