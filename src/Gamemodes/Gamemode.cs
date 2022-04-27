@@ -73,7 +73,6 @@ namespace Rhein.Gamemodes
         internal override void Init()
         {
             Ready();
-
             while (playing)
             {
                 Process();
@@ -99,7 +98,7 @@ namespace Rhein.Gamemodes
         public override void Process()
         {
             Position = (float)(deltaTimer.Elapsed.TotalSeconds + offset) * Speed + Offset;
-            
+
             Input.Update();
             Update();
             OnUpdate?.Invoke();

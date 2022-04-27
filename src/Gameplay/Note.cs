@@ -74,8 +74,8 @@ namespace Rhein.Gameplay
                 return;
 
             Remove();
-            Calculated = true;
             Deviance = Expected;
+            Calculated = true;
         }
 
         protected void Remove()

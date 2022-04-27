@@ -28,30 +28,30 @@ namespace Rhein
         /// <summary>Gets if the <see cref="TimingWindows"/> are the same as the <see cref="Default"/> windows.</summary>
         public readonly bool IsDefault;
 
-        public bool TooLate(float ms)
-            => ms * 1000f > Miss;
+        public bool TooLate(float sec)
+            => sec * 1000f > Miss;
 
         public bool TooLate(int ms)
             => ms > Miss;
 
-        public bool Hittable(float ms)
-            => Math.Abs(ms * 1000f) <= Miss;
+        public bool Hittable(float sec)
+            => Math.Abs(sec * 1000f) <= Miss;
 
         public bool Hittable(int ms)
             => Math.Abs(ms) <= Miss;
 
-        public Judgement Get(float ms)
+        public Judgement Get(float sec)
         {
-            ms = Math.Abs(ms * 1000f);
-            if (ms <= Marvelous)
+            sec = Math.Abs(sec * 1000f);
+            if (sec <= Marvelous)
                 return Judgement.Marvelous;
-            else if (ms <= Perfect)
+            else if (sec <= Perfect)
                 return Judgement.Perfect;
-            else if (ms <= Great)
+            else if (sec <= Great)
                 return Judgement.Great;
-            else if (ms <= Good)
+            else if (sec <= Good)
                 return Judgement.Good;
-            else if (ms <= Okay)
+            else if (sec <= Okay)
                 return Judgement.Okay;
             else
                 return Judgement.Miss;
