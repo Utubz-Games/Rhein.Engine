@@ -16,8 +16,6 @@ namespace Rhein.Gamemodes
     /// </summary>
     public abstract class Mania : Gamemode<Note>
     {
-        private static readonly Key[] keys = { Key.D, Key.F, Key.J, Key.K };
-
         /// <summary>
         /// The amount of keys used in the current <see cref="Mania"/> <see cref="Gamemode"/>.
         /// </summary>

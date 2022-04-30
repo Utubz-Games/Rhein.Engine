@@ -22,6 +22,7 @@ namespace Rhein.Gamemodes
         private double offset;
 
         public override event UpdateHandler OnUpdate;
+        public override event PreUpdateHandler OnPreUpdate;
 
         public override G As<G>() => (G)(BaseGamemode)this;
 
@@ -99,7 +100,7 @@ namespace Rhein.Gamemodes
         {
             Position = (float)(deltaTimer.Elapsed.TotalSeconds + offset) * Speed + Offset;
 
-            Input.Update();
+            OnPreUpdate?.Invoke();
             Update();
             OnUpdate?.Invoke();
         }

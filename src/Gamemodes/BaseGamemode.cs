@@ -11,11 +11,19 @@ namespace Rhein.Gamemodes
         /// Used to run code every Rhein Engine update.
         /// </summary>
         public delegate void UpdateHandler();
+        /// <summary>
+        /// Used to run code before every Rhein Engine update.
+        /// </summary>
+        public delegate void PreUpdateHandler();
 
         /// <summary>
         /// Hook into the update loop to run code on every Rhein Engine update.
         /// </summary>
         public abstract event UpdateHandler OnUpdate;
+        /// <summary>
+        /// Hook into the update loop to run code on before every Rhein Engine update.
+        /// </summary>
+        public abstract event PreUpdateHandler OnPreUpdate;
 
         /// <summary>
         /// Gets the current <see cref="Chart{T}"/>.

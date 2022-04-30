@@ -142,6 +142,14 @@ namespace Rhein
         }
 
         /// <summary>
+        /// Hook into the update loop to run code on every Rhein Engine update.
+        /// </summary>
+        public static event BaseGamemode.UpdateHandler OnUpdate { add => Gamemode.OnUpdate += value; remove => Gamemode.OnUpdate -= value; }
+        /// <summary>
+        /// Hook into the update loop to run code on before every Rhein Engine update.
+        /// </summary>
+        public static event BaseGamemode.PreUpdateHandler OnPreUpdate { add => Gamemode.OnPreUpdate += value; remove => Gamemode.OnPreUpdate -= value; }
+        /// <summary>
         /// The current <see cref="Chart{T}"/> being used for this <see cref="Game"/>.
         /// </summary>
         public static Chart<T> GetChart<T>() where T : Note => gamemode.GetChart<T>();
