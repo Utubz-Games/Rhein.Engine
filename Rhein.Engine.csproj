@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
@@ -6,7 +6,7 @@
 		<RootNamespace>Rhein</RootNamespace>
 		<AssemblyName>Rhein.Engine</AssemblyName>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<DocumentationFile>C:\Users\Admin\source\repos\Rhein.Engine\Rhein.Engine.xml</DocumentationFile>
+		<DocumentationFile></DocumentationFile>
 		<Company>Utubz Games</Company>
 		<Authors>398utubzyt</Authors>
 		<Product>Rhein Engine</Product>
