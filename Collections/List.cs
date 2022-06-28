@@ -8,7 +8,7 @@ namespace Rhein.Collections
     /// <summary>A list of elements.</summary>
     public class List<T> : IEnumerable<T>, ICloneable
     {
-        private readonly System.Collections.Generic.List<T> __list;
+        private readonly System.Collections.Generic.List<T> __list = new System.Collections.Generic.List<T>();
         /// <summary>The internal implementation of the list.</summary>
         public System.Collections.Generic.List<T> Internal => __list;
 

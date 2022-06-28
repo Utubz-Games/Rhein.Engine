@@ -38,7 +38,7 @@ namespace Rhein.Rulesets.Scoring
         /// <inheritdoc/>
         public sealed override string ToString()
         {
-            return Name;
+            return (Value * 100.0).ToString();
         }
 
         /// <inheritdoc/>

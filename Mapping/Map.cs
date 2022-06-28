@@ -1,5 +1,4 @@
 ﻿using Rhein.Collections;
-using Rhein.Rulesets;
 
 namespace Rhein.Mapping
 {

@@ -1,0 +1,482 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Rhein.Engine</name>
+    </assembly>
+    <members>
+        <member name="T:Rhein.Collections.Info">
+            <summary>A base class which contains info about a subject. This can be inherited to add default properties.</summary>
+        </member>
+        <member name="P:Rhein.Collections.Info.Count">
+            <summary>The number of properties within the info.</summary>
+        </member>
+        <member name="M:Rhein.Collections.Info.HasProperty(System.String)">
+            <summary>Gets if the info contains the provided <paramref name="key"/>.</summary>
+        </member>
+        <member name="M:Rhein.Collections.Info.GetProperty(System.String)">
+            <summary>Gets a property with the provided <paramref name="key"/>.</summary>
+        </member>
+        <member name="M:Rhein.Collections.Info.AddProperty(System.String,System.String)">
+            <summary>Adds a property with the provided <paramref name="key"/>.</summary>
+        </member>
+        <member name="M:Rhein.Collections.Info.RemoveProperty(System.String)">
+            <summary>Adds a property with the provided <paramref name="key"/>.</summary>
+        </member>
+        <member name="M:Rhein.Collections.Info.SetProperty(System.String,System.String)">
+            <summary>Sets a property with the provided <paramref name="key"/>.</summary>
+        </member>
+        <member name="P:Rhein.Collections.Info.Item(System.String)">
+            <summary>Gets or sets a property with the provided <paramref name="key"/>.</summary>
+        </member>
+        <member name="M:Rhein.Collections.Info.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Collections.Info.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Collections.Info.Clone">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Collections.Info.Populate">
+            <summary>Populates the current info with default properties.</summary>
+        </member>
+        <member name="M:Rhein.Collections.Info.#ctor">
+            <summary>Creates an info object.</summary>
+        </member>
+        <member name="T:Rhein.Collections.List`1">
+            <summary>A list of elements.</summary>
+        </member>
+        <member name="P:Rhein.Collections.List`1.Internal">
+            <summary>The internal implementation of the list.</summary>
+        </member>
+        <member name="P:Rhein.Collections.List`1.Count">
+            <summary>The number of elements within the list.</summary>
+        </member>
+        <member name="P:Rhein.Collections.List`1.Capacity">
+            <summary>The amount of elements the list can hold without allocating more memory.</summary>
+        </member>
+        <member name="M:Rhein.Collections.List`1.Add(`0)">
+            <summary>Adds a mod to the list.</summary>
+        </member>
+        <member name="M:Rhein.Collections.List`1.Add(System.Type)">
+            <summary>Adds a mod to the list.</summary>
+        </member>
+        <member name="M:Rhein.Collections.List`1.Add``1">
+            <summary>Adds a mod to the list.</summary>
+        </member>
+        <member name="M:Rhein.Collections.List`1.Add(System.Collections.Generic.IEnumerable{`0})">
+            <summary>Adds a collection of mods to the list.</summary>
+        </member>
+        <member name="M:Rhein.Collections.List`1.Remove(`0)">
+            <summary>Removes a mod to the list.</summary>
+        </member>
+        <member name="M:Rhein.Collections.List`1.Remove(System.Type)">
+            <summary>Removes a mod to the list.</summary>
+        </member>
+        <member name="M:Rhein.Collections.List`1.Remove``1">
+            <summary>Removes a mod to the list.</summary>
+        </member>
+        <member name="M:Rhein.Collections.List`1.Contains(`0)">
+            <summary>Gets if the list contains a mod.</summary>
+        </member>
+        <member name="M:Rhein.Collections.List`1.Contains(System.Type)">
+            <summary>Gets if the list contains a mod.</summary>
+        </member>
+        <member name="M:Rhein.Collections.List`1.Contains``1">
+            <summary>Gets if the list contains a mod.</summary>
+        </member>
+        <member name="M:Rhein.Collections.List`1.Clear">
+            <summary>Clears all mods from the list.</summary>
+        </member>
+        <member name="P:Rhein.Collections.List`1.Item(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Collections.List`1.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Collections.List`1.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Collections.List`1.Clone">
+            <inheritdoc/>
+        </member>
+        <member name="T:Rhein.Game">
+            <summary>A base game class for running a Rhein Engine loop.</summary>
+        </member>
+        <member name="P:Rhein.Game.Map">
+            <summary>The current map being used by the game.</summary>
+        </member>
+        <member name="P:Rhein.Game.Ruleset">
+            <summary>The current ruleset being used by the game.</summary>
+        </member>
+        <member name="P:Rhein.Game.Thread">
+            <summary>The current game thread.</summary>
+        </member>
+        <member name="P:Rhein.Game.Running">
+            <summary>The game's current running status.</summary>
+        </member>
+        <member name="M:Rhein.Game.Start(System.Boolean)">
+            <summary>Starts the game with the current map and ruleset.</summary>
+            <param name="newThread">Decides whether to start a new thread and auto-update, or to start on the current thread and manually update.</param>
+            <remarks>If the game is running on another thread, it will not start immediately as it needs to create the new thread and initialize data on it.</remarks>
+        </member>
+        <member name="M:Rhein.Game.Stop">
+            <summary>Stops the current game.</summary>
+            <remarks>If the game is running on another thread, it will not stop immediately as it needs to finish the current loop to exit properly.</remarks>
+        </member>
+        <member name="M:Rhein.Game.Begin">
+            <summary>Used for initialization before running the game.</summary>
+        </member>
+        <member name="M:Rhein.Game.End">
+            <summary>Used for denitialization after stopping the game.</summary>
+        </member>
+        <member name="M:Rhein.Game.Update">
+            <summary>Updates the game.</summary>
+        </member>
+        <member name="T:Rhein.IO.InfoParser">
+            <summary>The parser for info.</summary>
+        </member>
+        <member name="M:Rhein.IO.InfoParser.Read(System.IO.BinaryReader,Rhein.Collections.Info)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.IO.InfoParser.Write(System.IO.BinaryWriter,Rhein.Collections.Info)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Rhein.IO.MapParser`1">
+            <summary>The parser for a map.</summary>
+        </member>
+        <member name="M:Rhein.IO.MapParser`1.Read(System.IO.BinaryReader,Rhein.Mapping.Map{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.IO.MapParser`1.Write(System.IO.BinaryWriter,Rhein.Mapping.Map{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.IO.MapParser`1.#ctor(Rhein.IO.InfoParser,Rhein.IO.NoteParser{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="T:Rhein.IO.NoteParser`1">
+            <summary>The parser for a note.</summary>
+        </member>
+        <member name="M:Rhein.IO.NoteParser`1.Read(System.IO.BinaryReader,`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.IO.NoteParser`1.Write(System.IO.BinaryWriter,`0)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Rhein.IO.Parser`1">
+            <summary>A base class for parsing objects from binary files.</summary>
+        </member>
+        <member name="F:Rhein.IO.Parser`1.Header">
+            <summary>The 5-byte long header contained within a Rhein Engine file.</summary>
+        </member>
+        <member name="M:Rhein.IO.Parser`1.From(System.String,`0@)">
+            <summary>Gets an object from a file.</summary>
+        </member>
+        <member name="M:Rhein.IO.Parser`1.From(System.IO.Stream,`0)">
+            <summary>Gets an object from a stream.</summary>
+        </member>
+        <member name="M:Rhein.IO.Parser`1.To(System.String,`0)">
+            <summary>Writes an object to a file.</summary>
+        </member>
+        <member name="M:Rhein.IO.Parser`1.To(System.IO.Stream,`0)">
+            <summary>Writes an object to a stream.</summary>
+        </member>
+        <member name="M:Rhein.IO.Parser`1.Read(System.IO.BinaryReader,`0)">
+            <summary>Initializes an object from a <see cref="T:System.IO.BinaryReader"/>.</summary>
+        </member>
+        <member name="M:Rhein.IO.Parser`1.Write(System.IO.BinaryWriter,`0)">
+            <summary>Writes an object to a file with a <see cref="T:System.IO.BinaryWriter"/>.</summary>
+        </member>
+        <member name="T:Rhein.Mapping.IMap">
+            <summary>A map interface used for holding a map instance without knowing the note type.</summary>
+        </member>
+        <member name="P:Rhein.Mapping.IMap.Mapset">
+            <summary>The set which this map belongs to.</summary>
+        </member>
+        <member name="P:Rhein.Mapping.IMap.Info">
+            <summary>Info relating to the map.</summary>
+        </member>
+        <member name="P:Rhein.Mapping.IMap.Bpm">
+            <summary>The tempo of the map.</summary>
+        </member>
+        <member name="M:Rhein.Mapping.IMap.As``1">
+            <summary>Casts the interface to the proper type.</summary>
+        </member>
+        <member name="T:Rhein.Mapping.Map`1">
+            <summary>A map which holds notes for the player to hit during gameplay.</summary>
+        </member>
+        <member name="M:Rhein.Mapping.Map`1.As``1">
+            <inheritdoc/>
+        </member>
+        <member name="P:Rhein.Mapping.Map`1.Mapset">
+            <inheritdoc/>
+        </member>
+        <member name="P:Rhein.Mapping.Map`1.Info">
+            <inheritdoc/>
+        </member>
+        <member name="P:Rhein.Mapping.Map`1.Notes">
+            <summary>The notes of the map.</summary>
+        </member>
+        <member name="P:Rhein.Mapping.Map`1.Bpm">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Mapping.Map`1.Clone">
+            <inheritdoc/>
+        </member>
+        <member name="T:Rhein.Mapping.MapInfo">
+            <summary>Contains info specific to a map.</summary>
+        </member>
+        <member name="P:Rhein.Mapping.MapInfo.Title">
+            <summary>The title of the song.</summary>
+        </member>
+        <member name="P:Rhein.Mapping.MapInfo.Author">
+            <summary>The author(s) of the map.</summary>
+        </member>
+        <member name="P:Rhein.Mapping.MapInfo.Artist">
+            <summary>The artist(s) of the song.</summary>
+        </member>
+        <member name="P:Rhein.Mapping.MapInfo.Difficulty">
+            <summary>The display name for the difficulty of the map.</summary>
+        </member>
+        <member name="M:Rhein.Mapping.MapInfo.Populate">
+            <inheritdoc/>
+        </member>
+        <member name="T:Rhein.Mapping.Mapset">
+            <summary>A map which holds notes for the player to hit during gameplay.</summary>
+        </member>
+        <member name="M:Rhein.Mapping.Mapset.Clone">
+            <inheritdoc/>
+        </member>
+        <member name="T:Rhein.Mapping.Note">
+            <summary>A base note class for implementing custom data.</summary>
+        </member>
+        <member name="P:Rhein.Mapping.Note.Time">
+            <summary>The time in beats at which the note should be hit.</summary>
+        </member>
+        <member name="P:Rhein.Mapping.Note.Judged">
+            <summary>The note's judged state.</summary>
+        </member>
+        <member name="P:Rhein.Mapping.Note.Judgement">
+            <summary>The note's recieved judgement.</summary>
+        </member>
+        <member name="M:Rhein.Mapping.Note.Clone">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Mapping.Note.CloneNote">
+            <summary>Clones the note.</summary>
+        </member>
+        <member name="T:Rhein.Mapping.NoteList">
+            <summary>A list of notes.</summary>
+        </member>
+        <member name="T:Rhein.Mods.Mod">
+            <summary>A modification to the normal gameplay experience.</summary>
+        </member>
+        <member name="P:Rhein.Mods.Mod.Name">
+            <summary>The full display name of the mod.</summary>
+        </member>
+        <member name="P:Rhein.Mods.Mod.Label">
+            <summary>The short label of the mod for UI labels.</summary>
+        </member>
+        <member name="P:Rhein.Mods.Mod.Multiplier">
+            <summary>The multiplier to multiply the score by.</summary>
+        </member>
+        <member name="P:Rhein.Mods.Mod.Ranked">
+            <summary>Decides whether the score from the game using this mod should be considered ranked.</summary>
+        </member>
+        <member name="M:Rhein.Mods.Mod.Apply(Rhein.Rulesets.Ruleset,Rhein.Mapping.IMap)">
+            <summary>Applies the mod.</summary>
+        </member>
+        <member name="M:Rhein.Mods.Mod.Equals(Rhein.Mods.Mod)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Mods.Mod.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Mods.Mod.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Mods.Mod.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Mods.Mod.op_Equality(Rhein.Mods.Mod,Rhein.Mods.Mod)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Mods.Mod.op_Inequality(Rhein.Mods.Mod,Rhein.Mods.Mod)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Rhein.Mods.ModList">
+            <summary>A list of mods.</summary>
+        </member>
+        <member name="M:Rhein.Mods.ModList.Apply(Rhein.Rulesets.Ruleset,Rhein.Mapping.IMap)">
+            <summary>Applies the mods in the list.</summary>
+        </member>
+        <member name="T:Rhein.Rulesets.Ruleset">
+            <summary>A base ruleset class for implementing custom rules for gamemodes.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Ruleset.Name">
+            <summary>The display name of the ruleset.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Ruleset.Scorer">
+            <summary>The <see cref="T:Rhein.Rulesets.Scoring.Scorer"/> which provides scores for this ruleset.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Ruleset.Health">
+            <summary>The <see cref="T:Rhein.Rulesets.Scoring.Health"/> of the ruleset.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Ruleset.Mods">
+            <summary>The <see cref="T:Rhein.Mods.Mod"/>s used by the ruleset.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Ruleset.Judge(Rhein.Mapping.Note,System.Single)">
+            <summary>Assigns a <see cref="T:Rhein.Rulesets.Scoring.Judgements.IJudgement"/> to the note if applicable.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Ruleset.OnJudge(Rhein.Mapping.Note,Rhein.Rulesets.Scoring.Judgements.IJudgement)">
+            <summary>Called once a note is judged.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Ruleset.Equals(Rhein.Rulesets.Ruleset)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Ruleset.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Ruleset.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Ruleset.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Ruleset.op_Equality(Rhein.Rulesets.Ruleset,Rhein.Rulesets.Ruleset)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Ruleset.op_Inequality(Rhein.Rulesets.Ruleset,Rhein.Rulesets.Ruleset)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Rhein.Rulesets.Scoring.Health">
+            <summary>A base scorer class which scores gameplay.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Scoring.Health.Ruleset">
+            <summary>The <see cref="T:Rhein.Rulesets.Ruleset"/> which this scorer works for.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Scoring.Health.Value">
+            <summary>A value ranging from 0.0 to 1.0.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Health.OnJudge(Rhein.Mapping.Note,Rhein.Rulesets.Scoring.Judgements.IJudgement)">
+            <summary>Called once a note is judged.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Health.Equals(Rhein.Rulesets.Scoring.Health)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Health.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Health.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Health.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Health.op_Equality(Rhein.Rulesets.Scoring.Health,Rhein.Rulesets.Scoring.Health)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Health.op_Inequality(Rhein.Rulesets.Scoring.Health,Rhein.Rulesets.Scoring.Health)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Health.#ctor(Rhein.Rulesets.Ruleset)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Rhein.Rulesets.Scoring.Judgements.IJudgement">
+            <summary>An interface for judging hit timings.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Scoring.Judgements.IJudgement.Name">
+            <summary>The full display name of the judgement.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Scoring.Judgements.IJudgement.Label">
+            <summary>The short label of the judgement for UI labels.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Scoring.Judgements.IJudgement.Weight">
+            <summary>The value which this judgement contributes to the accuracy.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Scoring.Judgements.IJudgement.Window">
+            <summary>The amount in milliseconds which the hit needs to occur in to get this judgement.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Judgements.IJudgement.op_LessThan(Rhein.Rulesets.Scoring.Judgements.IJudgement,Rhein.Rulesets.Scoring.Judgements.IJudgement)">
+            <summary>Compares the weight of the two judgements to determine if a is less than b.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Judgements.IJudgement.op_GreaterThan(Rhein.Rulesets.Scoring.Judgements.IJudgement,Rhein.Rulesets.Scoring.Judgements.IJudgement)">
+            <summary>Compares the weight of the two judgements to determine if a is greater than b.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Judgements.IJudgement.op_LessThanOrEqual(Rhein.Rulesets.Scoring.Judgements.IJudgement,Rhein.Rulesets.Scoring.Judgements.IJudgement)">
+            <summary>Compares the weight of the two judgements to determine if a is less than or equal to b.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Judgements.IJudgement.op_GreaterThanOrEqual(Rhein.Rulesets.Scoring.Judgements.IJudgement,Rhein.Rulesets.Scoring.Judgements.IJudgement)">
+            <summary>Compares the weight of the two judgements to determine if a is greater than or equal to b.</summary>
+        </member>
+        <member name="T:Rhein.Rulesets.Scoring.Scorer">
+            <summary>A base scorer class which scores gameplay.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Scoring.Scorer.Ruleset">
+            <summary>The <see cref="T:Rhein.Rulesets.Ruleset"/> which this scorer works for.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Scoring.Scorer.Timer">
+            <summary>The timer which provides timings windows for the scorer.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Scoring.Scorer.Break">
+            <summary>The minimum judgement for a combo break.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Scoring.Scorer.Combo">
+            <summary>The current combo of the map.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Scoring.Scorer.Score">
+            <summary>The current score of the map.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Scorer.Judge(System.Single,Rhein.Mapping.Note@)">
+            <summary>Assigns a judgement to the note if applicable.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Scorer.BreakCombo">
+            <summary>Breaks the combo by setting it to 0 and calling any necessary events.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Scorer.OnJudge(Rhein.Mapping.Note,Rhein.Rulesets.Scoring.Judgements.IJudgement)">
+            <summary>Called once a note is judged.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Scorer.Equals(Rhein.Rulesets.Scoring.Scorer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Scorer.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Scorer.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Scorer.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Scorer.op_Equality(Rhein.Rulesets.Scoring.Scorer,Rhein.Rulesets.Scoring.Scorer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Scorer.op_Inequality(Rhein.Rulesets.Scoring.Scorer,Rhein.Rulesets.Scoring.Scorer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Scorer.#ctor(Rhein.Rulesets.Ruleset)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Rhein.Rulesets.Scoring.Timer">
+            <summary>A base class for defining timing windows for <see cref="T:Rhein.Rulesets.Scoring.Judgements.IJudgement"/>s.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Timer.InitializeJudgements">
+            <summary>Called when the <see cref="P:Rhein.Rulesets.Scoring.Timer.Judgements"/> array needs to be created. This is only called once per instance.</summary>
+        </member>
+        <member name="P:Rhein.Rulesets.Scoring.Timer.Judgements">
+            <summary>The list of judgements to be used ordered from smallest to largest timing window.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Timer.Judgeable(System.Int32)">
+            <summary>Decides whether, given the provided <paramref name="time"/>, a judgement should be given.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Timer.Judge(System.Int32)">
+            <summary>Gives a <see cref="T:Rhein.Rulesets.Scoring.Judgements.IJudgement"/> based on the provided <paramref name="time"/>.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Timer.TryJudge(System.Int32,Rhein.Mapping.Note@)">
+            <summary>Attempts to judge the note if it is within the right timing window. If not, then the note remains untouched.</summary>
+        </member>
+        <member name="M:Rhein.Rulesets.Scoring.Timer.#ctor">
+            <summary>The empty constructor for the timer.</summary>
+        </member>
+    </members>
+</doc>

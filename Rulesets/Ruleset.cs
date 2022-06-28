@@ -22,7 +22,7 @@ namespace Rhein.Rulesets
         /// <summary>Assigns a <see cref="IJudgement"/> to the note if applicable.</summary>
         public bool Judge(Note note, float time)
         {
-            if (Scorer.Judge(note, time))
+            if (Scorer.Judge(time, ref note))
             {
                 Scorer.OnJudge(note, note.Judgement);
                 Health.OnJudge(note, note.Judgement);
