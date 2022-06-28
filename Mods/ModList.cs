@@ -1,5 +1,6 @@
 ﻿using Rhein.Rulesets;
 using Rhein.Mapping;
+using Rhein.Collections;
 
 namespace Rhein.Mods
 {

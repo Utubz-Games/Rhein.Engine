@@ -1,8 +1,9 @@
-﻿using System;
+﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Rhein
+namespace Rhein.Collections
 {
     /// <summary>A list of elements.</summary>
     public class List<T> : IEnumerable<T>, ICloneable

@@ -1,8 +1,9 @@
-﻿using System;
+﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Rhein
+namespace Rhein.Collections
 {
     /// <summary>A base class which contains info about a subject. This can be inherited to add default properties.</summary>
     public class Info : IEnumerable<string>, ICloneable
@@ -64,7 +65,7 @@ namespace Rhein
         {
             Info info = new Info();
             info.dict.Clear();
-            
+
             foreach (string key in dict.Keys)
                 info.SetProperty(key, dict[key]);
 

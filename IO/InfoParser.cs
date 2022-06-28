@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 
+using Rhein.Collections;
 using Rhein.Mapping;
 using Rhein.Mods;
 using Rhein.Rulesets;
