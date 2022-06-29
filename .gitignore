@@ -356,4 +356,4 @@ MigrationBackup/
 *.asmdef
 
 # License File Header
-license_text.txt
+license_header.txt
