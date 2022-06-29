@@ -63,5 +63,3 @@ namespace Rhein.IO
         public abstract void Write(BinaryWriter bw, T obj);
     }
 }
-
-}
