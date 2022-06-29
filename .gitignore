@@ -354,3 +354,6 @@ MigrationBackup/
 
 # Unity AsmDef files
 *.asmdef
+
+# License File Header
+license_text.txt
